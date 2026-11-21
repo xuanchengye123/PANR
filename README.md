@@ -1,34 +1,25 @@
-# Penalized Estimation in Segmented Regression with Covariate-Dependent Change Points
+# Estimation and Inference for a Covariate-Dependent Hinge Model: Application to the Ferritin–Hemoglobin Relationship
 
-Sample R simulation code accompanying the paper **Penalized Estimation in Segmented Regression with Covariate-Dependent Change Points**.
+Sample R code implementing the partitioned alternating Newton–Raphson (PANR) algorithm for Simulation Scenario 3.
 
 ## Contents
 
-- `sample_simulation.R`: Simulation code comparing SCAD, MCP, lasso, L0, confidence-interval-based selection, and an oracle estimator. It includes three configurable scenarios, variable-selection summaries, and SCAD/MCP inference summaries.
-- `SampleCode_Scenario3.R`: Previously included standalone PANR simulation example for Scenario 3.
+- `SampleCode_Scenario3.R`: Standalone simulation code for **Scenario 3**, including the data-generating mechanism, the proposed partitioned alternating Newton–Raphson (PANR) estimator, and a Monte Carlo summary table.
 
-## Running the sample simulation
+## Reproducing Simulation Scenario 3
 
-Install the required packages once:
+The script uses **base R only**; on non-Windows systems it can use R's standard `parallel` package, with a serial fallback on Windows. No external data files are required.
 
-```r
-install.packages(c("MASS", "ncvreg", "L0Learn"))
-```
-
-From the directory containing the script, run:
+Run from R in the directory containing the file:
 
 ```r
-source("sample_simulation.R")
+source("SampleCode_Scenario3.R")
 ```
 
-The supplied sample uses Scenario I, sample size 250, 2 replications, and seed 20262027. These settings provide a small example run; they do not reproduce the full Monte Carlo study.
+Default settings in the supplied script are 1,000 Monte Carlo replications, sample size 1,000, and seed 20260914. The script requests up to 255 parallel workers on non-Windows systems; this may be resource-intensive. Before running on a personal computer, set `N_CORES` to a suitable number, or set it to `1L` for serial execution. Reducing `MC_REPS` is useful for testing, but does not reproduce the original Monte Carlo settings.
 
-To expand the simulation, edit the settings at the top of `sample_simulation.R`. The commented full-simulation settings select Scenarios I–III, sample sizes 250, 500, 1000, and 2500, and 1,000 replications.
-
-## Output
-
-Results and checkpoints are saved as CSV and RDS files in `simulation_output/` under the current working directory. Outputs include coefficient estimates, method comparisons, change-point variable-selection summaries, and parameter-level and averaged inference summaries for SCAD and MCP.
+The summary reports empirical bias, Monte Carlo standard deviation (MCSD), root mean squared error (RMSE), average estimated standard error (AVESE), and coverage probability (CP) for nominal 95% Wald confidence intervals. The script prints its output but does not save result files.
 
 ## Scope
 
-This repository provides sample simulation code. No external data files are required to run `sample_simulation.R`.
+This is **sample code for Simulation Scenario 3 only**. It is not a complete code repository for all simulations or the NHANES data analysis.
